@@ -1,10 +1,16 @@
-# 🚗 Car Rental Backend API
+# 🚗 Car Rental Management System API
 
-A production-oriented **Car Rental Management System Backend** built with **Java, Spring Boot 3, Spring Security, JWT Authentication, Spring Data JPA, Hibernate, and MySQL**.
+![Java](https://img.shields.io/badge/Java-21-orange)
+![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.5.3-brightgreen)
+![Spring Security](https://img.shields.io/badge/Spring%20Security-6.x-green)
+![JWT](https://img.shields.io/badge/JWT-Authentication-blue)
+![MySQL](https://img.shields.io/badge/MySQL-Database-blue)
+![Maven](https://img.shields.io/badge/Maven-Build-red)
+![License](https://img.shields.io/badge/License-MIT-yellow)
 
-The project follows modern backend development practices including layered architecture, RESTful API design, JWT-based authentication and authorization, role-based access control, and secure user management.
+A secure and scalable RESTful backend for a **Car Rental Management System**, built using **Java 21**, **Spring Boot 3.5.3**, **Spring Security**, **JWT Authentication**, **Spring Data JPA**, and **MySQL**.
 
-This backend is designed to serve as the foundation for a complete vehicle rental platform and demonstrates enterprise-level backend development concepts suitable for real-world applications.
+The application provides a role-based vehicle rental platform where **Customers**, **Lenders**, and **Administrators** interact through secure REST APIs. It follows a layered architecture with clear separation between controllers, services, repositories, DTOs, and domain models.
 
 ---
 
@@ -12,120 +18,210 @@ This backend is designed to serve as the foundation for a complete vehicle renta
 
 ## 🔐 Authentication & Authorization
 
-* User Registration
-* Secure Login
-* JWT Authentication
-* Refresh Token Support
-* Role-Based Authorization (ADMIN / USER)
-* Forgot Password
-* Password Encryption using BCrypt
-* Spring Security Integration
+- User Registration
+- Secure Login
+- JWT Token Authentication
+- Password Encryption using BCrypt
+- Stateless Authentication
+- Role-Based Access Control (RBAC)
+
+### Supported Roles
+
+- 👤 Customer
+- 🚘 Lender
+- 👨‍💼 Administrator
 
 ---
 
-## 👤 User Management
+# 🚘 Customer Module
 
-* View Profile
-* Update Profile
-* Upload Profile Picture
-* Change Password
+Customers can:
 
----
-
-## 🚙 Vehicle Management
-
-* Add Vehicle
-* Update Vehicle
-* Delete Vehicle
-* Search Vehicles
-* Filter Vehicles
-* Upload Vehicle Images
-* Vehicle Availability Management
+- Submit Driving License
+- Browse Available Cars
+- Search Cars
+- View Car Details
+- Book Vehicles
+- Cancel Bookings
+- View Booking History
 
 ---
 
-## 📅 Booking Management
+# 🚗 Lender Module
 
-* Book Vehicles
-* Cancel Booking
-* Booking History
-* Booking Approval Workflow
-* Booking Status Tracking
+Lenders can:
 
----
-
-## 👨‍💼 Admin Features
-
-* Manage Users
-* Manage Vehicles
-* View All Bookings
+- Add New Cars
+- Update Car Details
+- Delete Cars
+- View Their Listed Cars
+- View Booking Requests
+- Check Available Cars
 
 ---
 
-# 🛠️ Tech Stack
+# 👨‍💼 Admin Module
 
-| Category       | Technology            |
-| -------------- | --------------------- |
-| Language       | Java                  |
-| Framework      | Spring Boot 3.x       |
-| Security       | Spring Security + JWT |
-| ORM            | Hibernate             |
-| Persistence    | Spring Data JPA       |
-| Database       | MySQL                 |
-| Build Tool     | Maven                 |
-| Authentication | JWT + Refresh Token   |
-| Utilities      | Lombok                |
+Administrators can:
+
+- Review Pending Car Listings
+- Approve Car Listings
+- Reject Car Listings
+- Review Driving Licenses
+- Approve Driving Licenses
+- Reject Driving Licenses
+- Review Booking Requests
+- Approve Bookings
+- Reject Bookings
 
 ---
 
-# 📁 Project Structure
+# 🛠️ Technology Stack
+
+| Category | Technology |
+|-----------|------------|
+| Language | Java 21 |
+| Framework | Spring Boot 3.5.3 |
+| Security | Spring Security |
+| Authentication | JWT (JJWT 0.12.5) |
+| ORM | Spring Data JPA |
+| Persistence | Hibernate |
+| Database | MySQL |
+| Build Tool | Maven |
+| Boilerplate Reduction | Lombok |
+| Development | Spring Boot DevTools |
+
+---
+
+# 🏗️ Project Architecture
+
+The project follows a layered architecture to maintain clean separation of responsibilities.
 
 ```
-src
-├── main
-│   ├── java
-│   │   └── com
-│   │       └── yourpackage
-│   │           ├── config
-│   │           ├── controller
-│   │           ├── dto
-│   │           ├── entity
-│   │           ├── exception
-│   │           ├── repository
-│   │           ├── security
-│   │           ├── service
-│   │           └── util
-│   │
-│   └── resources
-│       ├── application.properties
-│       └── application-dev.properties
-│
-└── test
+Client
+   │
+REST API
+   │
+Controllers
+   │
+Services
+   │
+Repositories
+   │
+MySQL Database
 ```
 
 ---
 
-# 🔐 Security
+# 📂 Project Structure
 
-This project implements modern Spring Security practices including:
+```
+src/main/java
+└── com
+    └── gauharanas
+        └── car_rental_backend
+            ├── config
+            ├── controller
+            ├── dto
+            ├── filter
+            ├── model
+            ├── repository
+            ├── service
+            └── CarRentalBackendApplication.java
+```
 
-* JWT Authentication
-* Stateless Authentication
-* Password Encryption (BCrypt)
-* Role-Based Access Control
-* Secure REST APIs
-* Authentication Filters
-* Authorization Filters
+---
+
+# 📡 REST API Overview
+
+## Authentication
+
+| Method | Endpoint |
+|---------|----------|
+| POST | `/api/auth/signup` |
+| POST | `/api/auth/login` |
+
+---
+
+## Cars
+
+| Method | Endpoint |
+|---------|----------|
+| GET | `/api/cars` |
+| GET | `/api/cars/{carId}` |
+| GET | `/api/cars/search` |
+
+---
+
+## Customer APIs
+
+| Method | Endpoint |
+|---------|----------|
+| POST | `/api/customer/license` |
+| GET | `/api/customer/my-bookings` |
+| POST | `/api/customer/book` |
+| PUT | `/api/customer/booking/{bookingId}/cancel` |
+
+---
+
+## Lender APIs
+
+| Method | Endpoint |
+|---------|----------|
+| POST | `/api/lender/car` |
+| PUT | `/api/lender/car/{carId}` |
+| DELETE | `/api/lender/car/{carId}` |
+| GET | `/api/lender/my-cars` |
+| GET | `/api/lender/bookings` |
+| GET | `/api/lender/cars/available` |
+
+---
+
+## Admin APIs
+
+### Car Approval
+
+| Method | Endpoint |
+|---------|----------|
+| GET | `/api/admin/cars/pending` |
+| PUT | `/api/admin/car/{carNo}/approve` |
+| PUT | `/api/admin/car/{carNo}/reject` |
+
+### License Approval
+
+| Method | Endpoint |
+|---------|----------|
+| GET | `/api/admin/licenses/pending` |
+| PUT | `/api/admin/license/{licenseNumber}/approve` |
+| PUT | `/api/admin/license/{licenseNumber}/reject` |
+
+### Booking Approval
+
+| Method | Endpoint |
+|---------|----------|
+| GET | `/api/admin/bookings/pending` |
+| PUT | `/api/admin/booking/{bookingId}/approve` |
+| PUT | `/api/admin/booking/{bookingId}/reject` |
+
+---
+
+# 🔒 Security Features
+
+- JWT Authentication
+- Spring Security
+- Stateless Authentication
+- Role-Based Authorization
+- BCrypt Password Encoding
+- Authentication Filter
+- Protected REST Endpoints
 
 ---
 
 # 🗄️ Database
 
-Database: **MySQL**
+**Database:** MySQL
 
-Spring Data JPA and Hibernate are used for persistence.
-
-The application automatically creates or updates the schema during development.
+The application uses **Spring Data JPA** with **Hibernate** for ORM and database interaction.
 
 ---
 
@@ -133,10 +229,10 @@ The application automatically creates or updates the schema during development.
 
 ## Prerequisites
 
-* Java 21 (or your project version)
-* Maven
-* MySQL
-* Git
+- Java 21
+- Maven 3.9+
+- MySQL 8+
+- Git
 
 ---
 
@@ -146,9 +242,13 @@ The application automatically creates or updates the schema during development.
 git clone https://github.com/gauharanas/CarRentalApp_BackendProject.git
 ```
 
+```bash
+cd CarRentalApp_BackendProject
+```
+
 ---
 
-## Configure Development Profile
+## Configure Local Environment
 
 Create the following file:
 
@@ -156,22 +256,30 @@ Create the following file:
 src/main/resources/application-dev.properties
 ```
 
-Example configuration:
+Example:
 
 ```properties
 spring.datasource.url=YOUR_DATABASE_URL
 spring.datasource.username=YOUR_DATABASE_USERNAME
 spring.datasource.password=YOUR_DATABASE_PASSWORD
 
-jwt.secret=YOUR_JWT_SECRET
+jwt.secret=YOUR_SECRET_KEY
 jwt.expiration.ms=86400000
 ```
 
-> **Do not commit your local configuration or secrets.**
+> **Note:** Never commit `application-dev.properties` or any secrets to GitHub.
 
 ---
 
-## Run Application
+## Build
+
+```bash
+mvn clean install
+```
+
+---
+
+## Run
 
 ```bash
 mvn spring-boot:run
@@ -179,81 +287,63 @@ mvn spring-boot:run
 
 ---
 
-# 🔄 API Overview
+# 📈 Future Enhancements
 
-Authentication APIs
-
-* Register User
-* Login
-* Refresh Token
-* Forgot Password
-
-User APIs
-
-* Get Profile
-* Update Profile
-* Upload Profile Picture
-* Change Password
-
-Vehicle APIs
-
-* Add Vehicle
-* Update Vehicle
-* Delete Vehicle
-* Search Vehicles
-* Filter Vehicles
-
-Booking APIs
-
-* Create Booking
-* Cancel Booking
-* Booking History
-* Booking Status
-
-Admin APIs
-
-* Manage Users
-* Manage Vehicles
-* View Bookings
-
----
-
-# 🚧 Future Enhancements
-
-* Payment Gateway Integration (Stripe/Razorpay)
-* Email Verification
-* Vehicle Reviews & Ratings
-* Notifications
-* Docker Support
-* Redis Caching
-* API Rate Limiting
-* Microservices Architecture
-* CI/CD Pipeline
-* Unit & Integration Testing
-* Cloud Deployment (AWS/Azure)
+- Refresh Token Authentication
+- Forgot Password
+- Email Verification
+- Payment Gateway Integration
+- Image Upload
+- Swagger / OpenAPI Documentation
+- Docker Support
+- Redis Caching
+- CI/CD Pipeline
+- Unit & Integration Testing
+- Cloud Deployment
+- Microservices Migration
 
 ---
 
 # 🤝 Contributing
 
-Contributions, suggestions, and improvements are welcome.
+Contributions are welcome.
 
 1. Fork the repository
 2. Create a feature branch
+
+```
+git checkout -b feature/new-feature
+```
+
 3. Commit your changes
+
+```
+git commit -m "Add new feature"
+```
+
 4. Push the branch
+
+```
+git push origin feature/new-feature
+```
+
 5. Open a Pull Request
 
 ---
 
-# 📄 License
-
-This project is licensed under the MIT License.
-
----
-
-## 👨‍💻 Author
+# 👨‍💻 Author
 
 **Anas Gauhar**
 
-If you found this project useful, consider giving it a ⭐ on GitHub.
+- Java Backend Developer
+- Spring Boot Developer
+- REST API Developer
+
+GitHub:
+https://github.com/gauharanas
+
+---
+
+# ⭐ Support
+
+If you found this project useful, consider giving it a **Star ⭐** on GitHub.
